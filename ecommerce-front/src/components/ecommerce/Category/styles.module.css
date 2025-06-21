@@ -1,19 +1,45 @@
-.category {
+.categoryImg {
   width: 180px;
   height: 180px;
-}
-
-.categoryImg {
   overflow: hidden;
   border-radius: 50%;
   background-color: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .categoryImg img {
   width: 100%;
+  height: 100%;
+  object-fit: cover; /* This is crucial for perfectly filling the circle */
+  object-position: center;
+}
+
+.category a {
+  text-decoration: none;
+  color: black;
+  display: block;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.category a:hover {
+  text-decoration: none;
+  transform: translateY(-5px);
+}
+
+.category a:hover .categoryImg {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .categoryTitle {
   text-align: center;
-  font-size: 14px;
-  margin-top: 10px;
+  font-size: 16px;
+  margin-top: 15px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
