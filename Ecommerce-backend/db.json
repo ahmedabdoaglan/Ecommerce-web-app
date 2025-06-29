@@ -35,58 +35,66 @@
     {
       "id": 1,
       "title": "Regular Fit Jersey top",
-      "price": "249.00",
+      "price": 249.0,
       "cat_prefix": "men",
-      "img": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=500&fit=crop&crop=center"
+      "img": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=500&fit=crop&crop=center",
+      "max": 4
     },
     {
       "id": 2,
       "title": "Casual Cotton Shirt",
-      "price": "229.00",
+      "price": 229.0,
       "cat_prefix": "men",
-      "img": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=500&fit=crop&crop=center"
+      "img": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=500&fit=crop&crop=center",
+      "max": 4
     },
     {
       "id": 3,
       "title": "Cotton polo shirt",
-      "price": "200.00",
+      "price": 200.0,
       "cat_prefix": "men",
-      "img": "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=500&fit=crop&crop=center"
+      "img": "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=500&fit=crop&crop=center",
+      "max": 3
     },
     {
       "id": 4,
       "title": "Cotton t-shirt",
-      "price": "100.00",
+      "price": 100.0,
       "cat_prefix": "women",
-      "img": "https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?w=400&h=500&fit=crop&crop=center"
+      "img": "https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?w=400&h=500&fit=crop&crop=center",
+      "max": 2
     },
     {
       "id": 5,
       "title": "Elegant Summer Dress",
-      "price": "300.00",
+      "price": 300.0,
       "cat_prefix": "women",
-      "img": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&h=500&fit=crop&crop=center"
+      "img": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&h=500&fit=crop&crop=center",
+      "max": 3
     },
     {
       "id": 6,
       "title": "Colorful Kids Top",
-      "price": "300.00",
+      "price": 300.0,
       "cat_prefix": "kids",
-      "img": "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400&h=500&fit=crop&crop=center"
+      "img": "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400&h=500&fit=crop&crop=center",
+      "max": 2
     },
     {
       "id": 9,
       "title": "Cute Baby Romper",
-      "price": "500.00",
+      "price": 500.0,
       "cat_prefix": "baby",
-      "img": "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?w=400&h=500&fit=crop&crop=center"
+      "img": "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?w=400&h=500&fit=crop&crop=center",
+      "max": 2
     },
     {
       "id": 17,
       "title": "Athletic Sports Jersey",
-      "price": "449.00",
+      "price": 449.0,
       "cat_prefix": "sport",
-      "img": "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=500&fit=crop&crop=center"
+      "img": "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=500&fit=crop&crop=center",
+      "max": 2
     }
   ]
 }
