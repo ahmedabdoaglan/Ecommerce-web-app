@@ -1,6 +1,6 @@
 // import { useEffect, useState, memo } from "react";
 // import { useAppDispatch, useAppSelector } from "@store/hooks";
-// import { addToCart, fixCartData } from "@store/cart/cartSlice";
+// import { addToCart } from "@store/cart/cartSlice";
 // import { Button, Spinner } from "react-bootstrap";
 // import type { TProduct } from "@customTypes/product";
 
@@ -10,25 +10,13 @@
 // const Product = memo(({ id, title, price, img, max }: TProduct) => {
 //   const dispatch = useAppDispatch();
 //   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
-//   const [isFixed, setIsFixed] = useState(false);
 
 //   // جلب الكمية الحالية للمنتج من Redux state
 //   const currentQuantityInCart = useAppSelector(
 //     (state) => state.cart.items[id] || 0
 //   );
 
-//   // إصلاح تلقائي للبيانات الخاطئة (مرة واحدة بس)
-//   useEffect(() => {
-//     if (!isFixed && currentQuantityInCart > max) {
-//       console.log(
-//         `Fixing invalid data for product ${id}: ${currentQuantityInCart} > ${max}`
-//       );
-//       dispatch(fixCartData());
-//       setIsFixed(true);
-//     }
-//   }, [currentQuantityInCart, max, id, dispatch, isFixed]);
-
-//   const currentRemainingQuantity = Math.max(0, max - currentQuantityInCart);
+//   const currentRemainingQuantity = max - currentQuantityInCart;
 //   const quantityReachedToMax = currentRemainingQuantity <= 0;
 
 //   useEffect(() => {
@@ -58,21 +46,6 @@
 //       </div>
 //       <h2>{title}</h2>
 //       <h3>{price.toFixed(2)} EGP</h3>
-
-//       {/* إظهار رسالة إذا تم الإصلاح */}
-//       {currentQuantityInCart > max && (
-//         <div
-//           style={{
-//             fontSize: "10px",
-//             color: "red",
-//             background: "yellow",
-//             padding: "2px",
-//           }}
-//         >
-//           ⚠️ Invalid data detected - auto-fixing...
-//         </div>
-//       )}
-
 //       <p className={maximumNotice}>
 //         {quantityReachedToMax
 //           ? "You reach to the limit"
@@ -98,26 +71,32 @@
 
 // export default Product;
 
-import { useEffect, useState, memo } from "react";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
+import { useEffect, useState } from "react";
+import { useAppDispatch } from "@store/hooks";
+import { actLikeToggle } from "@store/wishlist/wishlistSlice";
 import { addToCart } from "@store/cart/cartSlice";
+import Like from "@assets/svg/like.svg?react";
+import LikeFill from "@assets/svg/like-fill.svg?react";
 import { Button, Spinner } from "react-bootstrap";
 import type { TProduct } from "@customTypes/product";
 
 import styles from "./styles.module.css";
-const { product, productImg, maximumNotice } = styles;
+const { product, productImg, maximumNotice, wishlistBtn } = styles;
 
-const Product = memo(({ id, title, price, img, max }: TProduct) => {
+const Product = ({
+  id,
+  title,
+  price,
+  img,
+  max,
+  quantity,
+  isLiked,
+}: TProduct) => {
   const dispatch = useAppDispatch();
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
-
-  // جلب الكمية الحالية للمنتج من Redux state
-  const currentQuantityInCart = useAppSelector(
-    (state) => state.cart.items[id] || 0
-  );
-
-  const currentRemainingQuantity = max - currentQuantityInCart;
-  const quantityReachedToMax = currentRemainingQuantity <= 0;
+  const [isLoading, setIsLoading] = useState(false);
+  const currentRemainingQuantity = max - (quantity ?? 0);
+  const quantityReachedToMax = currentRemainingQuantity <= 0 ? true : false;
 
   useEffect(() => {
     if (!isBtnDisabled) {
@@ -132,15 +111,31 @@ const Product = memo(({ id, title, price, img, max }: TProduct) => {
   }, [isBtnDisabled]);
 
   const addToCartHandler = () => {
-    // تأكد إن الكمية ما وصلتش للحد الأقصى قبل الإضافة
-    if (currentQuantityInCart < max) {
-      dispatch(addToCart(id));
-      setIsBtnDisabled(true);
+    dispatch(addToCart(id));
+    setIsBtnDisabled(true);
+  };
+
+  const likeToggleHandler = () => {
+    if (!isLoading) {
+      setIsLoading(true);
+      dispatch(actLikeToggle(id))
+        .unwrap()
+        .then(() => setIsLoading(false))
+        .catch(() => setIsLoading(false));
     }
   };
 
   return (
     <div className={product}>
+      <div className={wishlistBtn} onClick={likeToggleHandler}>
+        {isLoading ? (
+          <Spinner animation="border" size="sm" variant="primary" />
+        ) : isLiked ? (
+          <LikeFill />
+        ) : (
+          <Like />
+        )}
+      </div>
       <div className={productImg}>
         <img src={img} alt={title} />
       </div>
@@ -148,7 +143,7 @@ const Product = memo(({ id, title, price, img, max }: TProduct) => {
       <h3>{price.toFixed(2)} EGP</h3>
       <p className={maximumNotice}>
         {quantityReachedToMax
-          ? "You reach to the limit"
+          ? "You reached to the limit"
           : `You can add ${currentRemainingQuantity} item(s)`}
       </p>
       <Button
@@ -167,6 +162,6 @@ const Product = memo(({ id, title, price, img, max }: TProduct) => {
       </Button>
     </div>
   );
-});
+};
 
 export default Product;
