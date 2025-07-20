@@ -5,6 +5,7 @@ import {
   cartItemChangeQuantity,
   cartItemRemove,
 } from "@store/cart/cartSlice";
+import { Heading } from "@components/common";
 import { Loading } from "@components/feedback";
 import { CartItemList, CartSubtotalPrice } from "@components/eCommerce";
 
@@ -22,7 +23,7 @@ const Cart = () => {
     }
   }, [dispatch, items]);
 
-  // Properly connect products with quantities
+  // Solution: Filter products to show only items that exist in the cart
   const products = productsFullInfo
     .filter((product) => items[product.id]) // Only products that exist in the cart
     .map((product) => ({
@@ -46,7 +47,7 @@ const Cart = () => {
 
   return (
     <>
-      <h1>Your Cart</h1>
+      <Heading title="Your Cart" />
       <Loading status={loading} error={error}>
         {products.length ? (
           <>

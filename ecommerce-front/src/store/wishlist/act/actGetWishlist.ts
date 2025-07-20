@@ -1,19 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import type { TProduct } from "@customTypes/product";
-
-type TResponse = TProduct[];
+import { axiosErrorHandler } from "@utils";
+import type { TProduct } from "@types";
 
 const actGetWishlist = createAsyncThunk(
   "wishlist/actGetWishlist",
   async (_, thunkAPI) => {
-    const { rejectWithValue, fulfillWithValue } = thunkAPI;
+    const { rejectWithValue, fulfillWithValue, signal } = thunkAPI;
 
     try {
       // Get user wishlist
       const userWishlist = await axios.get<
         { id: number; productId: number; userId: number }[]
-      >("/wishlist?userId=1");
+      >("/wishlist?userId=1", { signal });
 
       if (!userWishlist.data.length) {
         return fulfillWithValue([]);
@@ -21,7 +20,7 @@ const actGetWishlist = createAsyncThunk(
 
       // Get each product individually to avoid query string issues
       const productPromises = userWishlist.data.map((item) =>
-        axios.get<TProduct>(`/products/${item.productId}`)
+        axios.get<TProduct>(`/products/${item.productId}`, { signal })
       );
 
       const responses = await Promise.all(productPromises);
@@ -29,11 +28,7 @@ const actGetWishlist = createAsyncThunk(
 
       return products;
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        return rejectWithValue(error.response?.data.message || error.message);
-      } else {
-        return rejectWithValue("An unexpected error");
-      }
+      return rejectWithValue(axiosErrorHandler(error));
     }
   }
 );

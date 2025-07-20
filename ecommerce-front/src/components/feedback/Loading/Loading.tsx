@@ -1,4 +1,4 @@
-import type { TLoading } from "@customTypes/shared";
+import type { TLoading } from "@types";
 
 type LoadingProps = {
   loading: TLoading;

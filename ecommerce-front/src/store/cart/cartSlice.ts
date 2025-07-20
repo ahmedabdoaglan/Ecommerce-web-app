@@ -1,14 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import actGetProductsByItems from "./act/actGetProductsByItems";
-import {
-  getCartTotalQuantitySelector,
-  itemQuantityAvailabilityCheckingSelector,
-} from "./selectors";
-import type { TProduct } from "@customTypes/product";
-import type { TLoading } from "@customTypes/shared";
+import { getCartTotalQuantitySelector } from "./selectors";
+import type { TProduct, TLoading } from "@types";
+import { isString } from "@types";
 
 interface ICartState {
-  items: { [key: number]: number }; // Changed from string to number
+  items: { [key: string]: number };
   productsFullInfo: TProduct[];
   loading: TLoading;
   error: null | string;
@@ -36,8 +33,8 @@ const cartSlice = createSlice({
     cartItemChangeQuantity: (state, action) => {
       const { id, quantity } = action.payload;
       if (quantity <= 0) {
+        // Solution: Remove item from both items and productsFullInfo when quantity is 0 or less
         delete state.items[id];
-        // Also remove the product from productsFullInfo
         state.productsFullInfo = state.productsFullInfo.filter(
           (el) => el.id !== id
         );
@@ -47,11 +44,14 @@ const cartSlice = createSlice({
     },
     cartItemRemove: (state, action) => {
       const id = action.payload;
+      // Solution: Remove item from both items and productsFullInfo
       delete state.items[id];
-      // Remove the product from productsFullInfo
       state.productsFullInfo = state.productsFullInfo.filter(
         (el) => el.id !== id
       );
+    },
+    cleanCartProductsFullInfo: (state) => {
+      state.productsFullInfo = [];
     },
   },
   extraReducers: (builder) => {
@@ -65,18 +65,18 @@ const cartSlice = createSlice({
     });
     builder.addCase(actGetProductsByItems.rejected, (state, action) => {
       state.loading = "failed";
-      if (action.payload && typeof action.payload === "string") {
+      if (isString(action.payload)) {
         state.error = action.payload;
       }
     });
   },
 });
 
-export {
-  getCartTotalQuantitySelector,
-  itemQuantityAvailabilityCheckingSelector,
-  actGetProductsByItems,
-};
-export const { addToCart, cartItemChangeQuantity, cartItemRemove } =
-  cartSlice.actions;
+export { getCartTotalQuantitySelector, actGetProductsByItems };
+export const {
+  addToCart,
+  cartItemChangeQuantity,
+  cartItemRemove,
+  cleanCartProductsFullInfo,
+} = cartSlice.actions;
 export default cartSlice.reducer;
