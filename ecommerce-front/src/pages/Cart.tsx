@@ -6,7 +6,7 @@ import {
   cartItemRemove,
 } from "@store/cart/cartSlice";
 import { Heading } from "@components/common";
-import { Loading } from "@components/feedback";
+import { Loading, LottieHandler } from "@components/feedback";
 import { CartItemList, CartSubtotalPrice } from "@components/eCommerce";
 
 const Cart = () => {
@@ -48,7 +48,7 @@ const Cart = () => {
   return (
     <>
       <Heading title="Your Cart" />
-      <Loading status={loading} error={error}>
+      <Loading status={loading} error={error} type="cart">
         {products.length ? (
           <>
             <CartItemList
@@ -60,8 +60,7 @@ const Cart = () => {
           </>
         ) : (
           <div style={{ textAlign: "center", padding: "20px" }}>
-            <h3>Your Cart is empty</h3>
-            <p>Add some products to see them here!</p>
+            <LottieHandler message="Your cart is empty" type="empty" />
           </div>
         )}
       </Loading>
