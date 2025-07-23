@@ -1,4 +1,10 @@
 {
+  "users": [
+    {
+      "email": "karem.nour89@gmail.com",
+      "id": "d4fe"
+    }
+  ],
   "categories": [
     {
       "id": "1",
