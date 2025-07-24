@@ -1,6 +1,6 @@
 import useProducts from "@hooks/useProducts";
 import { GridList, Heading } from "@components/common";
-import { Product } from "@components/eCommerce";
+import { Product } from "@components/ecommerce";
 import { Loading } from "@components/feedback";
 import type { TProduct } from "@types";
 

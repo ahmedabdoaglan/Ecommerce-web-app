@@ -7,7 +7,7 @@ import {
 } from "@store/cart/cartSlice";
 import { Heading } from "@components/common";
 import { Loading, LottieHandler } from "@components/feedback";
-import { CartItemList, CartSubtotalPrice } from "@components/eCommerce";
+import { CartItemList, CartSubtotalPrice } from "@components/ecommerce";
 
 const Cart = () => {
   const dispatch = useAppDispatch();

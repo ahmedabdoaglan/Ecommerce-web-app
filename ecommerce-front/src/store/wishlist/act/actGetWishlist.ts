@@ -2,31 +2,39 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { axiosErrorHandler } from "@utils";
 import type { TProduct } from "@types";
+import type { RootState } from "@store/index";
+
+type TDataType = "productsFullInfo" | "ProductIds";
+type TResponse = TProduct[];
 
 const actGetWishlist = createAsyncThunk(
   "wishlist/actGetWishlist",
-  async (_, thunkAPI) => {
-    const { rejectWithValue, fulfillWithValue, signal } = thunkAPI;
-
+  async (dataType: TDataType, thunkAPI) => {
+    const { rejectWithValue, signal, getState } = thunkAPI;
+    const { auth } = getState() as RootState;
     try {
-      // Get user wishlist
-      const userWishlist = await axios.get<
-        { id: number; productId: number; userId: number }[]
-      >("/wishlist?userId=1", { signal });
-
-      if (!userWishlist.data.length) {
-        return fulfillWithValue([]);
-      }
-
-      // Get each product individually to avoid query string issues
-      const productPromises = userWishlist.data.map((item) =>
-        axios.get<TProduct>(`/products/${item.productId}`, { signal })
+      const userWishlist = await axios.get<{ productId: number }[]>(
+        `/wishlist?userId=${auth.user?.id}`,
+        { signal }
       );
 
-      const responses = await Promise.all(productPromises);
-      const products = responses.map((response) => response.data);
+      if (!userWishlist.data.length) {
+        return { data: [], dataType: "empty" };
+      }
 
-      return products;
+      if (dataType === "ProductIds") {
+        const concatenatedItemsId = userWishlist.data.map((el) => el.productId);
+        return { data: concatenatedItemsId, dataType: "productsIds" };
+      } else {
+        const concatenatedItemsId = userWishlist.data
+          .map((el) => `id=${el.productId}`)
+          .join("&");
+
+        const response = await axios.get<TResponse>(
+          `/products?${concatenatedItemsId}`
+        );
+        return { data: response.data, dataType: "ProductsFullInfo" };
+      }
     } catch (error) {
       return rejectWithValue(axiosErrorHandler(error));
     }
