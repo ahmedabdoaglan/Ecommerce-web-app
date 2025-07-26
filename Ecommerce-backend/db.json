@@ -106,11 +106,119 @@
       "max": 2
     }
   ],
-  "wishlist": [
+  "wishlist": [],
+  "orders": [
     {
       "userId": 1,
-      "productId": "2",
+      "items": [
+        {
+          "id": "5",
+          "title": "Elegant Summer Dress",
+          "price": 300,
+          "img": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&h=500&fit=crop&crop=center",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 300,
       "id": 1
+    },
+    {
+      "userId": 1,
+      "items": [
+        {
+          "id": "5",
+          "title": "Elegant Summer Dress",
+          "price": 300,
+          "img": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&h=500&fit=crop&crop=center",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 300,
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "items": [
+        {
+          "id": "5",
+          "title": "Elegant Summer Dress",
+          "price": 300,
+          "img": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&h=500&fit=crop&crop=center",
+          "quantity": 3
+        }
+      ],
+      "subtotal": 900,
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "items": [
+        {
+          "id": "3",
+          "title": "Cotton polo shirt",
+          "price": 200,
+          "img": "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=500&fit=crop&crop=center",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 200,
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "items": [
+        {
+          "id": "3",
+          "title": "Cotton polo shirt",
+          "price": 200,
+          "img": "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=500&fit=crop&crop=center",
+          "quantity": 1
+        },
+        {
+          "id": "9",
+          "title": "Cute Baby Romper",
+          "price": 500,
+          "img": "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?w=400&h=500&fit=crop&crop=center",
+          "quantity": 1
+        },
+        {
+          "id": "17",
+          "title": "Athletic Sports Jersey",
+          "price": 449,
+          "img": "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=500&fit=crop&crop=center",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 1149,
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "items": [
+        {
+          "id": "3",
+          "title": "Cotton polo shirt",
+          "price": 200,
+          "img": "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=500&fit=crop&crop=center",
+          "quantity": 1
+        },
+        {
+          "id": "9",
+          "title": "Cute Baby Romper",
+          "price": 500,
+          "img": "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?w=400&h=500&fit=crop&crop=center",
+          "quantity": 1
+        },
+        {
+          "id": "17",
+          "title": "Athletic Sports Jersey",
+          "price": 449,
+          "img": "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=500&fit=crop&crop=center",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 1149,
+      "id": 6
     }
   ]
 }

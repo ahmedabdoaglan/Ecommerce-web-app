@@ -14,7 +14,7 @@
 .categoryImg img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* This is crucial for perfectly filling the circle */
+  object-fit: cover;
   object-position: center;
 }
 

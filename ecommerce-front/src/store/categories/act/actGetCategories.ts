@@ -10,7 +10,6 @@ const actGetCategories = createAsyncThunk(
   async (_, thunkAPI) => {
     const { rejectWithValue, signal } = thunkAPI;
     try {
-      // const response = await axios.get<TResponse>("/category", { signal });
       const response = await axios.get<TResponse>("/categories", { signal });
       return response.data;
     } catch (error) {
